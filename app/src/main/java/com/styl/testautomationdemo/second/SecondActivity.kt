@@ -1,17 +1,19 @@
-package com.styl.testautomationdemo
+package com.styl.testautomationdemo.second
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import com.styl.testautomationdemo.R
+import com.styl.testautomationdemo.Service
 import kotlinx.android.synthetic.main.activity_second.*
 
 class SecondActivity : AppCompatActivity(), ISecondContact.View, View.OnClickListener {
-    private val presenter = SecondPresenter(this)
+    private lateinit var presenter: SecondPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+        presenter = SecondPresenter(this, Service())
         btn_login.setOnClickListener(this)
     }
 
@@ -23,12 +25,7 @@ class SecondActivity : AppCompatActivity(), ISecondContact.View, View.OnClickLis
         }
     }
 
-    override fun onLoginSuccess() {
-        tv_status.text = "Success"
+    override fun showError(message: String) {
+        tv_status.text = message
     }
-
-    override fun onLoginFail() {
-        tv_status.text = "Fail"
-    }
-
 }
